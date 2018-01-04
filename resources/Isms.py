@@ -6,9 +6,7 @@ import json, urllib, requests
 
 class Isms(MethodView):
 
-    '''
-    Post request send to ISMS API.
-    '''
+    # Post request send to ISMS API.
     def post(self):
 
         response = ''
@@ -61,22 +59,18 @@ class Isms(MethodView):
         except:
             raise Exception('Seems like the ISMS server is temporarily down.')
 
-
         return response
 
-    '''
-    Check for phone number if user put 6 in front
-    otherwise put it in.
-    '''
+
+    # Check for phone number if user put 6 in front
+    # otherwise put it in.
     def checkCountryCode(self, phoneNumber):
         if phoneNumber[:1] != '6':
             return '6' + phoneNumber
 
         return phoneNumber
 
-    '''
-    Get response code from ISMS response.
-    '''
+    # Get response code from ISMS response.
     def parseResponse(self, responseText):
         text = responseText.split('=')
         code = text[0].strip()
@@ -92,9 +86,7 @@ class Isms(MethodView):
             'message': message
         }
 
-    '''
-    Validate request to check for compulsary field.
-    '''
+    # Validate request to check for compulsary field.
     def fieldValidation(self, args):
         compulsaryField = ('phone', 'message', 'username', 'password')
         response = None

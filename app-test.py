@@ -8,9 +8,7 @@ class SmsTestCase(unittest.TestCase):
       self.app = app.app.test_client();
       app.testing = True
 
-   '''
-   Perform test using application/x-www-form-urlencoded.
-   '''
+   # Perform test using application/x-www-form-urlencoded.
    def test_can_send_form_encoded(self):
       response = self.app.post('/send', data=dict(
          phone=['60145127982'],
@@ -23,9 +21,7 @@ class SmsTestCase(unittest.TestCase):
 
       self.assertEqual('2000', data.get('code'))
 
-   '''
-   Perform test using application/json.
-   '''
+   # Perform test using application/json.
    def test_can_send_application_json(self):
       response = self.app.post('/send', data=json.dumps(dict(
          phone=['60145127982'],

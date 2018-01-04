@@ -6,11 +6,10 @@ import json, urllib, requests
 
 class Isms(MethodView):
 
-    # Post request send to ISMS API.
-    def post(self):
+    def __init__(self):
+        self.app = app
 
-        response = ''
-
+    def identifyContentType(self, request):
         # If the request coming from normal form, then
         # parse individually using reqparse module.
         if request.content_type == 'application/x-www-form-urlencoded':
@@ -25,42 +24,7 @@ class Isms(MethodView):
         else:
             args = request.get_json()
 
-        # Validate field before proceed.
-        if isinstance(self.fieldValidation(args), dict):
-            return self.fieldValidation(args)
-
-        htmlParser = html_parser.HTMLParser()
-
-        phoneNumber = args['phone']
-        message = urllib.quote_plus(htmlParser.unescape(args['message']))
-        username = urllib.quote_plus(htmlParser.unescape(args['username']))
-        password = urllib.quote_plus(htmlParser.unescape(args['password']))
-
-        phone = '';
-
-        # Single phone number or just a string of phone number.
-        if isinstance(phoneNumber, basestring):
-            if phoneNumber[:1] != '6':
-                phone = '6' + phone
-
-        # List of phone number.
-        else:
-            for item in phoneNumber:
-                phone += self.checkCountryCode(item) + ','
-
-            phone = phone[:-1]
-
-        url = app.config['ISMS_ENDPOINT'] + 'un=' + username + '&pwd=' + password + '&dstno=' + phone + '&msg=' + message + '&type=1&sendid=63666'
-
-        try:
-            response = requests.get(url)
-            return self.parseResponse(response.text)
-
-        except:
-            raise Exception('Seems like the ISMS server is temporarily down.')
-
-        return response
-
+        return args
 
     # Check for phone number if user put 6 in front
     # otherwise put it in.
@@ -72,23 +36,28 @@ class Isms(MethodView):
 
     # Get response code from ISMS response.
     def parseResponse(self, responseText):
-        text = responseText.split('=')
-        code = text[0].strip()
-        message = text[1].strip()
+        # Only exist on send sms. Check balance are exceptional.
+        if '=' in responseText:
+            text = responseText.split('=')
+            code = text[0].strip()
+            message = text[1].strip()
+        else:
+            code = '2000'
+            message = responseText
 
         # Hypen(-) symbol only exist on Error Response
         if '-' in code:
             code = code[1:]
 
         return {
-            'status': 'success' if code == 2000 else 'failed',
+            'status': 'success' if code == '2000' else 'failed',
             'code': code,
             'message': message
         }
 
     # Validate request to check for compulsary field.
-    def fieldValidation(self, args):
-        compulsaryField = ('phone', 'message', 'username', 'password')
+    def fieldValidation(self, args, fields=None):
+        compulsaryField = fields if fields is not None else ('phone', 'message', 'username', 'password')
         response = None
 
         for field in compulsaryField:

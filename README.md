@@ -36,12 +36,13 @@ ISMS_PASSWORD = 'isms password'
 ## Start Server
 Navigate to isms-microservices folder and run
 
-## Usage
-You can made HTTP request call from any client client as long as they can accept content type `application/x-www-form-urlencoded` or `application/json`
-
 ```
 python app.py
 ```
+
+## Usage
+You can made HTTP request call from any client client as long as they can accept content type `application/x-www-form-urlencoded` or `application/json`.
+
 
 ## Test
 Run test 

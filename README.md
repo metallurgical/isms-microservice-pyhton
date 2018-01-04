@@ -50,7 +50,7 @@ POST http(s)://<domain-name>/sms/send
 POST http(s)://<domain-name>/sms/check-balance
 ```
 
-`<domain-name>` could be TLDN(top level domain name) or `localhost`, depends on where your application hosted and deploy.
+`<domain-name>` could be TLDN(top level domain name) or `localhost`, depends on where your application is hosted and deploy.
 
 
 ## Test

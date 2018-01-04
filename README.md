@@ -41,7 +41,7 @@ python app.py
 ```
 
 ## Usage
-You can made HTTP request call from any client client as long as they can accept content type `application/x-www-form-urlencoded` or `application/json`.
+You can make HTTP request call from any client client as long as they can accept content type `application/x-www-form-urlencoded` or `application/json`.
 
 Available route:
 

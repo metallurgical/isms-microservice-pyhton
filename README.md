@@ -43,12 +43,17 @@ python app.py
 ## Usage
 You can make HTTP request call from any client client as long as they can accept content type `application/x-www-form-urlencoded` or `application/json`.
 
-Available route:
+Send Message: `POST http(s)://<domain-name>/sms/send`
+- **username** : [string] Isms username
+- **password** : [string] Isms password
+- **phone** : [string|array] Receiver's phone number.Either single string or list of array. e.g: **60134567874** or **['60134567874', '60134567874']**
+- **message** : [string] Message to send to the receiver.
 
-```
-POST http(s)://<domain-name>/sms/send
-POST http(s)://<domain-name>/sms/check-balance
-```
+
+Check Balance: `POST http(s)://<domain-name>/sms/check-balance`
+- **username** : [string] Isms username
+- **password** : [string] Isms password
+
 
 `<domain-name>` could be TLDN(top level domain name) or `localhost`, depends on where your application is hosted and deploy.
 

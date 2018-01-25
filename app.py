@@ -16,4 +16,4 @@ api.add_resource(Message.Message, '/sms/send')
 api.add_resource(Balance.Balance, '/sms/check-balance')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run() # use app.run(debug=True) for debugging

@@ -1,3 +1,4 @@
 instance/
 venv/
 .idea
+my-python-env/

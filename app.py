@@ -12,8 +12,8 @@ app.config.from_object('config')
 app.config.from_pyfile('config.py')
 
 # Register route.
-api.add_resource(Message.Message, '/sms/send')
-api.add_resource(Balance.Balance, '/sms/check-balance')
+api.add_resource(Message.Message(), '/sms/send')
+api.add_resource(Balance.Balance(), '/sms/check-balance')
 
 if __name__ == '__main__':
     app.run() # use app.run(debug=True) for debugging

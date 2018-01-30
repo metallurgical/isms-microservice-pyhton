@@ -184,7 +184,7 @@ import sys
 sys.path.insert(0,'/var/www/example.com/flaskapp')
 
 # activate this if we didnt use python-home and python-path
-# activate_this = '/var/www/sms.thunderwide.com/flaskapp/venv/bin/activate_this.py'
+# activate_this = '/var/www/example.com/flaskapp/venv/bin/activate_this.py'
 # execfile(activate_this, dict(__file__=activate_this))
 
 
